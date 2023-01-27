@@ -28,20 +28,40 @@
 				let yyyymmdd = $("#yyyymmddInput").val();
 				let email = $("#emailInput").val();
 				
+				if(name == "") {
+					alert("이름을 입력하세요.");
+					return ;
+				}
+				
+				if(yyyymmdd == "") {
+					alert("생년월일을 입력하세요");
+					return ;
+				}
+				
+				if(email == "") {
+					alert("이메일을 입력하세요.");
+					return ;
+				}
+				
 				
 				$.ajax({
+					// request 옵션들
 					type:"get"
 					, url:"/ajax/user/add"
 					, data:{"name":name, "yyyymmdd":yyyymmdd, "email":email}
+					// response 옵션
 					, success:function(data) {
+						// {"result":"success"} {"result":"fail"}
 						if(data.result == "success") {
-							location.href="/ajax/user/list";
+							// 리스트 페이지로 이동
+							location.href = "/ajax/user/list";
 						} else {
-							alert("저장실패");
+							alert("저장 실패");
 						}
+						
 					}
 					, error:function() {
-						alert("저장 에러!");
+						alert("저장 에러");
 					}
 				});
 				
